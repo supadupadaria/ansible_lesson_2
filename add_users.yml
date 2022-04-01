@@ -1,0 +1,16 @@
+---
+- name: create users
+  hosts: nodes
+  vars_files:
+   - vars/users
+   - vars/password.yml
+  tasks:
+   - name: create user
+     user:
+       state: present 
+       name: "{{ item }}"
+       comment: "{{ item }}@example.com"
+       home: "/home/{{ item }}"
+       password: "{{ password }}"
+       update_password: on_create
+     loop: "{{ users }}"

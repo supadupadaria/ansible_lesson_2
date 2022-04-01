@@ -1,0 +1,12 @@
+---
+- name: delete users
+  hosts: nodes
+  vars_files:
+   - vars/users
+  tasks:
+   - name: delete user
+     user:
+       state: absent 
+       name: "{{ item }}"
+       remove: yes
+     loop: "{{ users }}"
